@@ -158,8 +158,8 @@ const store = [
 //assigning to zero for start of application
 let answeredCorrectly = 0;
 let answeredIncorrectly = 0;
-let i = 0;
-let clockRunning = false;
+let unansweredQuestions = 0;
+let i = 8;
 let questionInterval = null;
 let resultInterval = null;
 
@@ -197,6 +197,7 @@ function startQuestionTimer() {
     questionInterval = setInterval(function () {
         if (time === -1) {
             clearInterval(questionInterval);
+            unansweredQuestions++;
             showAnswer("Times Up!!");
         } else {
             $(".timer").html(time);
@@ -210,7 +211,7 @@ function startQuestionTimer() {
 
 function submitAnswer() {
     // Get the user input
-    let selectedAnswer = parseInt($(`input[name = answer]:checked`).val())  ;
+    let selectedAnswer = parseInt($(`input[name = answer]:checked`).val());
     // Compare with correct answer
     let correctAnswer = store[i].correctAnswer;
     let resultMessage = "";
@@ -242,18 +243,57 @@ function showAnswer(message) {
     //timer 4 sec
     resultInterval = setInterval(goToNextQuestion, 4000);
     //go to next question
-    
+
 };
 
 
 function goToNextQuestion() {
     clearInterval(resultInterval);
     $("#win-lose-timeOut").hide();
-    i++;
-    generateCurrentQuestion();
-    $(".surveyForm").show();
-    $(".timer").show();
+
+    if (i < (store.length - 1)) {
+        i++;
+        generateCurrentQuestion();
+        $(".surveyForm").show();
+        $(".timer").show();
+    } else {
+        $(".surveyForm").hide();
+        $(".timer").hide();
+        let finalScore = `
+            <h2>Answered Correctly: ${answeredCorrectly}</h2>
+            <h2>Answered Inorrectly: ${ answeredIncorrectly}</h2>
+            <h2>Unaswered: ${unansweredQuestions}</h2>
+            <button type="button" id="playAgain">Play Again</button>`;
+        $("#finalPage").html(finalScore).show();
+    }
+
+    $("#playAgain").on("click", function () {
+        // reset game
+        // Set everything back to zero
+        restartGame();
+        // Start the question again
+        generateCurrentQuestion();
+        $(".surveyForm").show();
+        $(".timer").show();
+        //show survey from
+        //show timer
+        //hide finalPage
+        $("#finalPage").hide();
+    });
+
+
+
 };
+
+function restartGame() {
+    answeredCorrectly = 0;
+    answeredIncorrectly = 0;
+    unansweredQuestions = 0;
+    i = 0;
+    questionInterval = null;
+    resultInterval = null;
+}
+
 
 
 generateCurrentQuestion();

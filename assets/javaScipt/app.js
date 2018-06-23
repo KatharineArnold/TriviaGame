@@ -171,13 +171,17 @@ function generateCurrentQuestion() {
     // 
     let currentQuestion = `
     
-    <h3>${store[i].question}</h3>
-    <input type="radio" name="answer" value="0" checked>${store[i].answers[0]}</input>
-    <input type="radio" name="answer" value="1">${store[i].answers[1]}</input>
-    <input type="radio" name="answer" value="2">${store[i].answers[2]}</input>
-    <input type="radio" name="answer" value="3">${store[i].answers[3]}</input>
+    <h3 class="question">${store[i].question}</h3>
+    <input id="answer0" class="block" type="radio" name="answer" value="0" checked>
+    <label for="answer0" class="label">${store[i].answers[0]}</label>
+    <input id="answer1" class="block" type="radio" name="answer" value="1">
+    <label for="answer1" class="label">${store[i].answers[1]}</label>
+    <input id="answer2" class="block" type="radio" name="answer" value="2">
+    <label class="label" for="answer2">${store[i].answers[2]}</label>
+    <input id="answer3" class="block" type="radio" name="answer" value="3">
+    <label for="answer3" class="label">${store[i].answers[3]}</label>
     <br>
-    <button type="button" id="js-submit-button">Submit</button>
+    <button type="button" id="js-submit-button" class="btn btn-primary btn-lg" >Submit</button>
     `;
     $(".surveyForm").html(currentQuestion)
     $("#js-submit-button").on("click", function () {
@@ -236,9 +240,9 @@ function showAnswer(message) {
     $(".timer").hide();
     //show pic and answer
     let correctFeedback = `
-            <h2>${message}</h2>
+            <h2 class="resultMessage">${message}</h2>
             <p>The correct answer is ${store[i].alt}</p>
-            <img src="${store[i].icon}" alt="${store[i].alt}"  width="200" />`
+            <img class="resultPic" src="${store[i].icon}" alt="${store[i].alt}"  width="200" />`
     $("#win-lose-timeOut").html(correctFeedback).show();
     //timer 4 sec
     resultInterval = setInterval(goToNextQuestion, 4000);
@@ -263,7 +267,7 @@ function goToNextQuestion() {
             <h2>Answered Correctly: ${answeredCorrectly}</h2>
             <h2>Answered Inorrectly: ${ answeredIncorrectly}</h2>
             <h2>Unaswered: ${unansweredQuestions}</h2>
-            <button type="button" id="playAgain">Play Again</button>`;
+            <button type="button" class="btn btn-primary" id="playAgain">Play Again</button>`;
         $("#finalPage").html(finalScore).show();
     }
 

@@ -150,7 +150,7 @@ const store = [
             "Maltese",
         ],
         correctAnswer: 0,
-        icon: "https://scontent.fapa1-2.fna.fbcdn.net/v/t1.0-9/21032380_10211653636669472_8014600278065846889_n.jpg?oh=105782702ac9fcb61a1e7976a3b189a6&oe=5B3D64EC",
+        icon: "http://www.dogbreedslist.info/uploads/allimg/dog-pictures/Basset-Hound-2.jpg",
         alt: 'Bassett Hound',
     },
 ]
@@ -159,7 +159,7 @@ const store = [
 let answeredCorrectly = 0;
 let answeredIncorrectly = 0;
 let unansweredQuestions = 0;
-let i = 8;
+let i = 0;
 let questionInterval = null;
 let resultInterval = null;
 
